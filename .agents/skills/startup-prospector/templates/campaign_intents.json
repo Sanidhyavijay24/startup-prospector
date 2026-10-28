@@ -1,0 +1,28 @@
+{
+  "intents": {
+    "review_media": {
+      "name": "Review & Media Feature",
+      "description": "Invite the startup to be featured in an upcoming category roundup, benchmark, or directory.",
+      "bridge_formula": "We are putting together an upcoming [Category] benchmark and would love to feature [Company Name].",
+      "best_channels": ["Email", "LinkedIn", "X (Twitter)"]
+    },
+    "investor_scout": {
+      "name": "Investor & Scout Inquiry",
+      "description": "Engage founders for early-stage scouting, funding updates, or portfolio review.",
+      "bridge_formula": "We actively scout high-momentum early-stage founders in [Category] and would love to learn more about your roadmap.",
+      "best_channels": ["LinkedIn", "Email", "X (Twitter)"]
+    },
+    "partnership_integration": {
+      "name": "Technical Co-Marketing & Integration",
+      "description": "Propose an API integration, ecosystem partnership, or co-marketing initiative.",
+      "bridge_formula": "We are building developer workflows in the [Category] space and see a natural integration with what [Company Name] is doing.",
+      "best_channels": ["Discord", "Email", "LinkedIn"]
+    },
+    "founder_feedback": {
+      "name": "Founder-to-Founder Product Feedback",
+      "description": "Engage indie founders and peer builders with authentic product testing feedback.",
+      "bridge_formula": "Currently testing early tooling in the [Category] space and wanted to share a couple UX observations with you directly.",
+      "best_channels": ["Discord", "X (Twitter)"]
+    }
+  }
+}
