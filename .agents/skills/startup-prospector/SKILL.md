@@ -31,12 +31,19 @@ Before I start sourcing, please clarify:
    [3] Review & Media Feature: Featuring them in an upcoming benchmark, guide, or roundup.
    [4] Investor / Scout Inquiry: Sourcing for potential investment, partnership, or advisory.
 
-4. Scope & Preferred Channels:
+4. Preferred Discovery Source:
+   [1] Hacker News (Show HN / Launch HN - Indie builders & early MVPs)
+   [2] GitHub Velocity (Trending OSS with 100+ stars in 60 days & commit emails)
+   [3] Y Combinator (Recent batches S24/W24/W25 - Venture-backed SaaS)
+   [4] Product Hunt (Top weekly consumer AI & productivity tools)
+   [5] Mixed (Recommended - Blends across sources for maximum candidate diversity)
+
+5. Scope & Preferred Channels:
    - How many startups to source? (Default: 10, processed in batches of 5)
    - Preferred outreach channels? (e.g., Discord, LinkedIn, X/Twitter, Cold Email)
 ```
 
-> **Fast-Forward Rule:** If the user already provided this context in their opening prompt (e.g., *"I am the founder of TraceCLI, find 10 early-stage AI dev tools for a co-marketing integration"*), skip the questions and proceed immediately to Phase 1.
+> **Fast-Forward Rule:** If the user already provided this context in their opening prompt (e.g., *"I am the founder of TraceCLI, find 10 early-stage AI dev tools from YC and GitHub for a co-marketing integration"*), skip the questions and proceed immediately to Phase 1.
 
 ### Grounding Hooks to User Identity:
 * **When the user is a Founder:** In Hook B, explicitly weave the user's tool into Line 3 (the Bridge):
@@ -51,9 +58,11 @@ Before I start sourcing, please clarify:
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │                        PHASE 1: MULTI-SOURCE DISCOVERY                 │
-│  - Run: python .agents/skills/startup-prospector/scripts/fetch_hn.py   │
-│    --query "<niche>" --limit <batch_size * 2>                          │
-│  - Or search Y Combinator / Product Hunt via web search                │
+│  Execute the designated source engine (or blend in Mixed mode):        │
+│  - Hacker News: python .../fetch_hn.py --query "<niche>" --limit N     │
+│  - GitHub: python .../fetch_github.py --query "<niche>" --min-stars 100│
+│  - Y Combinator: python .../fetch_yc.py --batches S24,W24 --query ...  │
+│  - Product Hunt: python .../fetch_ph.py --limit N                      │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │
                                     ▼

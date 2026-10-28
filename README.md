@@ -175,23 +175,53 @@ The skill executes in **atomic batches of 5** to preserve context window reasoni
 
 Every module can also be invoked as a standalone CLI tool without an LLM:
 
-#### A. Discover Candidates via Hacker News Algolia Stream
+#### A. Discover Candidates via 4 Zero-Cost Ingestion Engines
+
+**1. Hacker News Algolia Stream (Indie hackers & early MVPs):**
 ```bash
 python .agents/skills/startup-prospector/scripts/fetch_hn.py --query "developer" --limit 5
+```
+
+**2. GitHub Star Velocity (100+ stars in 60 days + git commit author email extractor):**
+```bash
+python .agents/skills/startup-prospector/scripts/fetch_github.py --query "agent" --days 60 --min-stars 100 --limit 5
 ```
 ```json
 [
   {
-    "name": "DevFlow AI",
-    "one_line_description": "Git-native AI pair programming engine for terminal users",
-    "website": "https://devflow.example.com",
-    "hn_author": "alexmercer",
-    "points": 142,
-    "comments_count": 48,
-    "created_at": "2026-09-15T14:22:00Z",
-    "hn_discussion_url": "https://news.ycombinator.com/item?id=39120485"
+    "name": "magpie",
+    "one_line_description": "Every agent's model in one place",
+    "website": "https://usemagpie.ai",
+    "stars": 24560,
+    "founder_handle": "@yetone",
+    "founder_name": "yetone",
+    "founder_email": "yetoneful@gmail.com",
+    "github_repo": "https://github.com/yetone/magpie"
   }
 ]
+```
+
+**3. Y Combinator Public Directory (Recent batches S24/W24/W25 - Active startups only):**
+```bash
+python .agents/skills/startup-prospector/scripts/fetch_yc.py --batches S24,W24 --query "ai" --limit 5
+```
+```json
+[
+  {
+    "name": "Merlin AI",
+    "one_line_description": "AI powered ERP for Construction",
+    "website": "https://www.merlinai.co",
+    "batch": "Summer 2024",
+    "status": "Active",
+    "team_size": 19,
+    "yc_profile_url": "https://www.ycombinator.com/companies/merlin-ai"
+  }
+]
+```
+
+**4. Product Hunt Weekly Launches (Public Atom feed reader):**
+```bash
+python .agents/skills/startup-prospector/scripts/fetch_ph.py --limit 5
 ```
 
 #### B. Audit Website Liveness & Community Health

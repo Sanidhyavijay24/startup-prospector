@@ -45,6 +45,11 @@ Autonomous agent-native skill designed for Antigravity, Gemini, and AI coding as
 - [x] Canonical GitHub repository URL linked: `https://github.com/Sanidhyavijay24/startup-prospector.git`
 - [x] High-end README redesign completed: removed tacky emojis/badges, added competitive breakdown table, side-by-side copy comparison, and full terminal trace walkthroughs
 - [x] Interactive Intake Protocol implemented: 4-question intake gate with founder persona adaptation, dynamic co-marketing bridge templates, and fast-forward mode
+- [x] GitHub Star Velocity Engine (`fetch_github.py`): 100+ stars in 60 days + git commit author email extractor (100% verified live)
+- [x] Y Combinator Directory Engine (`fetch_yc.py`): live dynamic Algolia search index for recent batches S24/W24/W25 (100% verified live)
+- [x] Product Hunt RSS/Atom Ingestion (`fetch_ph.py`): weekly top product reader supporting dual Atom & RSS (100% verified live)
+- [x] Multi-source routing & mixed mode integrated into `SKILL.md` and `README.md`
+- [x] Full test suite: 19/19 `pytest` unit tests passing
 
 ## 5. Data Models
 ### StartupRecord Schema (Pydantic / JSON)
