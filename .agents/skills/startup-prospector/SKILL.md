@@ -10,17 +10,39 @@ This skill standardizes the end-to-end workflow for discovering early-stage tech
 
 ---
 
-## 1. Input Parsing & Intent Configuration
+## 1. Interactive Intake Protocol (The Discovery Gate)
 
-When the user triggers this skill:
-1. **Identify the Search Criteria:**
-   * Target Niche / Category (e.g. *"AI Developer Tools"*, *"B2B SaaS"*, *"Local LLM agents"*).
-   * Target Batch Size (default is **10** startups; execute in sub-batches of 5).
-   * Target Intent Profile (refer to `templates/campaign_intents.json`):
-     - `review_media`: Review / Media Benchmark feature (default).
-     - `investor_scout`: Venture scout / investor inquiry.
-     - `partnership_integration`: Co-marketing or API integration.
-     - `founder_feedback`: Peer-to-peer product testing feedback.
+When the user triggers this skill, the agent must check if the user's initial prompt contains all necessary parameters. If any key parameter is missing, the agent **must pause and prompt the user** before starting Phase 1 discovery.
+
+### The 4 Intake Questions:
+```text
+Before I start sourcing, please clarify:
+
+1. Target Niche & Stage: What category and stage are you targeting?
+   (e.g., Early-stage AI developer tools, B2B SaaS, pre-seed/seed, YC batches)
+
+2. Your Identity & Product (Optional): Who are you reaching out as?
+   - If you are a founder: What is your startup name and a 1-line value proposition?
+   - If you are a scout / reviewer / developer: What is your publication, fund, or community?
+
+3. Primary Outreach Angle / Intent:
+   [1] Peer Founder / Collaboration: You are a founder connecting with peer builders.
+   [2] Technical Integration / Co-Marketing: Proposing an integration between your tool and theirs.
+   [3] Review & Media Feature: Featuring them in an upcoming benchmark, guide, or roundup.
+   [4] Investor / Scout Inquiry: Sourcing for potential investment, partnership, or advisory.
+
+4. Scope & Preferred Channels:
+   - How many startups to source? (Default: 10, processed in batches of 5)
+   - Preferred outreach channels? (e.g., Discord, LinkedIn, X/Twitter, Cold Email)
+```
+
+> **Fast-Forward Rule:** If the user already provided this context in their opening prompt (e.g., *"I am the founder of TraceCLI, find 10 early-stage AI dev tools for a co-marketing integration"*), skip the questions and proceed immediately to Phase 1.
+
+### Grounding Hooks to User Identity:
+* **When the user is a Founder:** In Hook B, explicitly weave the user's tool into Line 3 (the Bridge):
+  > *"We're building [User Startup], a [User Product Description], and saw a natural workflow pairing between [User Value Prop] and what you're doing with [Target Startup]."*
+* **When the user is a Reviewer / Scout:** Anchor Line 3 to the upcoming category benchmark or scouting inquiry:
+  > *"We are putting together an upcoming [Target Category] benchmark and want to feature [Target Startup]."*
 
 ---
 

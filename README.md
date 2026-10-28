@@ -148,11 +148,23 @@ echo "When asked to prospect startups or find founders, follow .agents/skills/st
 
 ## End-to-End Walkthrough
 
-### 1. Triggering via Prompt
-Once installed, trigger the skill naturally:
+### 1. Triggering via Prompt & Adaptive Intake
+
+You can trigger the skill with a single prompt. If your instruction is high-level, the agent automatically initiates an **Intake Interview** before spending compute:
 
 ```text
-@startup-prospector Source 10 early-stage AI developer tools launched in the last 3 months with Discord communities. Use the Media Review intent.
+User: @startup-prospector Find some AI developer tools for outreach.
+
+Agent: Before I start sourcing, please clarify:
+1. Target Niche & Stage: (e.g., Early-stage AI developer tools, pre-seed/seed)
+2. Your Identity (Optional): Who are you reaching out as? (e.g., "Founder of TraceCLI")
+3. Primary Intent: [1] Peer Founder, [2] Integration, [3] Review Benchmark, [4] Investor Scout
+4. Batch Size: (Default: 10, processed in batches of 5)
+```
+
+**Fast-Forward Mode:** If you provide your context upfront, the agent skips the intake interview and proceeds directly:
+```text
+@startup-prospector I am the founder of TraceCLI (terminal logger). Find 10 early-stage AI devtools with Discord communities for a founder-to-founder co-marketing integration.
 ```
 
 The skill executes in **atomic batches of 5** to preserve context window reasoning and prevent hallucination drift.
