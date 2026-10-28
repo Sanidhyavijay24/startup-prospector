@@ -18,6 +18,9 @@ htmlcov/
 .env
 *.local
 
+# Internal Project Ledger
+context.md
+
 # OS
 .DS_Store
 Thumbs.db

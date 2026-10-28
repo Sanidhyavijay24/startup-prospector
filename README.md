@@ -8,6 +8,10 @@
 Antigravity Skill  •  Claude Code Compatible  •  Zero API Keys Required  •  Deterministic Quality Gate
 ```
 
+<br />
+
+<img src="assets/banner.png" alt="startup-prospector architecture and terminal preview" width="100%" />
+
 </div>
 
 ---
@@ -268,9 +272,11 @@ python .agents/skills/startup-prospector/scripts/export_pipeline.py output/paylo
 ### 1. Styled Excel Spreadsheet (`output/prospects.xlsx`)
 Built with `openpyxl`, featuring navy table headers (`#1E293B`), wrapped multi-line cells for outreach copy, auto-adjusted column dimensions, and community sizing:
 
-| Company Name | Website | Founder Name | Role | Founder LinkedIn | Discord Invite | Members | Hook A (Product Trigger) | Hook B (Technical Insight) | Hook Source | Best Channels |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **DevFlow AI** | `https://devflow.example.com` | Alex Mercer | Founder & CEO | `linkedin.com/in/alexmercer-dev` | `discord.gg/devflow` | 1,420 | *Read your post from earlier this month introducing the new terminal diff engine...* | *DevFlow AI has stood out for keeping the CLI interaction instantaneous...* | `https://devflow.example.com/blog` | Discord, LinkedIn, X |
+| Company Name | Website | Category | Founder Name | Role | Founder LinkedIn | Discord Invite | Members | Hook A (Product Trigger) | Hook B (Technical Insight) | Hook Source | Best Channels |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **DevFlow AI** | `https://devflow.example.com` | Developer Tools | Alex Mercer | Founder & CEO | `linkedin.com/in/alexmercer-dev` | `discord.gg/devflow` | 1,420 | *Read your post from earlier this month introducing the new terminal diff engine. Giving engineers git-native review controls without forcing another heavy IDE extension solves the exact friction developers complain about. We are putting together an AI developer tooling benchmark and want to feature DevFlow AI.* | *DevFlow AI has stood out for keeping the CLI interaction instantaneous while other platforms overload their sidebars with complicated settings. For everyday refactoring, a lightweight terminal workflow beats enterprise GUI tools every time. Would love to feature DevFlow AI in our upcoming developer tools guide.* | `https://devflow.example.com/blog` | Discord, LinkedIn, X |
+| **Magpie** | `https://usemagpie.ai` | AI Infrastructure | Yetone Ful | Founder & Core Dev | `linkedin.com/in/yetone` | `discord.gg/usemagpie` | 3,850 | *Saw your recent release unifying model routing across Claude Code and DeepSeek from the system menu bar. Giving engineers local model fallback without rewriting endpoint configurations makes everyday developer workflows noticeably smoother. We are running an AI devtools benchmark and want to highlight Magpie.* | *Magpie caught our attention for keeping inference multiplexing lightweight rather than wrapping it in a bulky Electron app. Lightweight menu-bar integration for terminal agents solves a major pain point for power developers. Would love to feature your architecture in our upcoming tooling roundup.* | `https://github.com/yetone/magpie` | GitHub, Discord, LinkedIn |
+| **Merlin AI** | `https://www.merlinai.co` | B2B SaaS | Sarah Chen | Co-Founder & CEO | `linkedin.com/in/sarahchen-ai` | N/A | N/A | *Noticed your launch out of YC Summer 2024 streamlining automated ERP workflows for commercial contractors. Replacing multi-tab manual spreadsheets with automated invoice sync directly cuts hours of admin overhead for construction teams. We are profiling top YC SaaS tools and would love to feature Merlin AI.* | *Merlin AI stands out for embedding OCR data extraction natively into contractor accounts rather than forcing users to learn complex enterprise ERP software. Keeping the onboarding curve under five minutes makes adoption painless for field teams. Would love to include Merlin AI in our upcoming enterprise SaaS spotlight.* | `https://www.merlinai.co/changelog` | LinkedIn, X (Twitter) |
 
 ### 2. 1-Click Google Sheets TSV (`output/prospects.tsv`)
 Tab-separated values engineered for instant pasting. Click cell **AD** in your master Google Sheet, press `Ctrl + V`, and seamlessly populate:
@@ -285,6 +291,8 @@ Tab-separated values engineered for instant pasting. Click cell **AD** in your m
 
 Customize the bridge in `templates/campaign_intents.json`:
 
+* **`founder_peer` (Founder Collaboration):** *"We are building [User Startup] ([User Product One-Liner]) and noticed a great synergy between our [User Value Prop] and what you have built with [Company Name]. Would love to connect and exchange notes."*
+* **`partnership_integration`:** *"We are building [User Startup] and see a natural workflow pairing between [User Value Prop] and how engineers use [Company Name]. Would love to explore a joint integration."*
 * **`review_media` (Default):** *"We are putting together an upcoming [Category] benchmark and would love to feature [Company Name]."*
 * **`investor_scout`:** *"We actively scout high-momentum early-stage founders in [Category] and would love to learn more about your roadmap."*
 * **`partnership_integration`:** *"We are building developer workflows in the [Category] space and see a natural integration with what [Company Name] is doing."*
@@ -315,7 +323,7 @@ tests/test_linter.py::test_em_dash_fails PASSED                          [ 84%]
 tests/test_linter.py::test_corporate_buzzwords_fail PASSED               [ 92%]
 tests/test_linter.py::test_sentence_count_bounds PASSED                  [100%]
 
-============================= 13 passed in 0.38s ==============================
+============================= 19 passed in 1.19s ==============================
 ```
 
 ---
@@ -351,6 +359,16 @@ startup-prospector/
                 ├── anti_hallucination.md           # Zero fake-slug & date anchoring rules
                 └── directory_endpoints.md          # Public discovery endpoints documentation
 ```
+
+---
+
+## Roadmap & Future Enhancements
+
+The following extensions are planned for upcoming releases:
+* **Zero-Cost Email Waterfall & SMTP Handshake:** DNS MX validation and direct mailbox pinging (`RCPT TO`) to verify corporate emails without paid API brokers.
+* **1-Click Notion CRM & Webhook Dispatcher:** Automatically append enriched prospects directly to a Notion database or outbound webhooks (Zapier, Make, Clay, Attio).
+* **Multi-Touch Outreach Sequences:** Expand beyond Hook A/B into an automated 3-touch cadence (Opener $\to$ Technical Value Add $\to$ Graceful Breakup).
+* **Automated Founder Dossiers:** Generate single-page Markdown briefing sheets (`output/dossiers/{slug}.md`) for rapid review before founder calls.
 
 ---
 
