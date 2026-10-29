@@ -1,46 +1,22 @@
 """
 @file fetch_github.py
-@description GitHub Star Velocity search with commit author email extractor (Zero API key needed)
+@description GitHub Star Velocity search for breakout developer tools and public repositories
 """
 
 import sys
 import os
-import re
 import json
 import argparse
 from datetime import datetime, timedelta, timezone
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 import requests
 
 GITHUB_SEARCH_URL = "https://api.github.com/search/repositories"
 BROWSER_USER_AGENT = "Mozilla/5.0 (compatible; StartupProspector/1.0; +https://github.com/Sanidhyavijay24/startup-prospector)"
 
-BOT_EMAIL_PATTERN = re.compile(
-    r"(?:\[bot\]|users\.noreply\.github\.com|actions@github\.com|dependabot|snyk-bot)",
-    re.IGNORECASE
-)
-
-
-def parse_commit_author(patch_or_commit_text: str) -> Optional[Dict[str, str]]:
-    """
-    Extracts author name and email from git patch headers or commit metadata.
-    Filters out bots and noreply privacy proxies.
-    """
-    match = re.search(r"^From:\s*([^<\n]+)<([^>\n]+)>", patch_or_commit_text, flags=re.MULTILINE)
-    if not match:
-        return None
-
-    name = match.group(1).strip()
-    email = match.group(2).strip()
-
-    if BOT_EMAIL_PATTERN.search(name) or BOT_EMAIL_PATTERN.search(email):
-        return None
-
-    return {"name": name, "email": email}
-
 
 def get_github_headers() -> Dict[str, str]:
-    """Builds headers, leveraging GITHUB_TOKEN if present in environment."""
+    """Builds headers, leveraging optional GITHUB_TOKEN if present in environment."""
     headers = {
         "User-Agent": BROWSER_USER_AGENT,
         "Accept": "application/vnd.github.v3+json",
@@ -51,41 +27,6 @@ def get_github_headers() -> Dict[str, str]:
     return headers
 
 
-def fetch_commit_author(owner: str, repo: str, headers: Dict[str, str]) -> Optional[Dict[str, str]]:
-    """
-    Attempts to pull the top non-merge commit author directly from GitHub commits API
-    or falls back to parsing patch text headers.
-    """
-    try:
-        commits_url = f"https://api.github.com/repos/{owner}/{repo}/commits?per_page=5"
-        resp = requests.get(commits_url, headers=headers, timeout=5)
-        if resp.status_code != 200:
-            return None
-
-        # Check if response is patch text
-        if "From:" in resp.text:
-            parsed = parse_commit_author(resp.text)
-            if parsed:
-                return parsed
-
-        # Otherwise parse JSON commits list
-        commits_data = resp.json()
-        if isinstance(commits_data, list):
-            for c in commits_data:
-                commit_obj = c.get("commit", {})
-                author_info = commit_obj.get("author", {})
-                name = author_info.get("name", "")
-                email = author_info.get("email", "")
-
-                if name and email and not BOT_EMAIL_PATTERN.search(email):
-                    return {"name": name, "email": email}
-
-    except Exception:
-        pass
-
-    return None
-
-
 def fetch_github_trending(
     query: str = "ai",
     days: int = 60,
@@ -94,7 +35,7 @@ def fetch_github_trending(
 ) -> List[Dict[str, Any]]:
     """
     Finds breakout repositories launched in the last N days with rapid star growth.
-    Extracts technical founder contact via commit author metadata.
+    Pulls canonical product website, public GitHub handle, and repo metrics.
     """
     cutoff_date = (datetime.now(timezone.utc) - timedelta(days=days)).strftime("%Y-%m-%d")
     search_q = f"{query} created:>{cutoff_date} stars:>={min_stars}"
@@ -125,9 +66,6 @@ def fetch_github_trending(
         # Canonical website preference: homepage if valid URL, else fallback to github repo
         website = homepage if (homepage.startswith("http://") or homepage.startswith("https://")) else html_url
 
-        # Attempt commit author email extraction
-        author = fetch_commit_author(owner_login, name, headers)
-
         results.append({
             "name": name,
             "one_line_description": description,
@@ -136,8 +74,6 @@ def fetch_github_trending(
             "created_at": repo.get("created_at"),
             "language": repo.get("language") or "Unknown",
             "founder_handle": f"@{owner_login}",
-            "founder_name": author.get("name") if author else None,
-            "founder_email": author.get("email") if author else None,
             "github_repo": html_url,
         })
 

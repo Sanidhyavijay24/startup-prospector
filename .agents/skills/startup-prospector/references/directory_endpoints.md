@@ -23,15 +23,12 @@ This reference documents free, public, and rate-limit friendly endpoints that th
 
 ---
 
-## 2. GitHub Search & Commit Author Extractor
+## 2. GitHub Star Velocity API
 
 * **Search API:** `GET https://api.github.com/search/repositories?q={query}+created:>{date}+stars:>={min_stars}&sort=stars&order=desc`
 * **Rate Limits:** 10 unauthenticated requests/min, or 5,000/hr with `GITHUB_TOKEN`.
-* **Founder Email Extraction via Commits API / Patch:**
-  * `GET https://api.github.com/repos/{owner}/{repo}/commits?per_page=5`
-  * Or append `.patch` to commit URL: `https://github.com/{owner}/{repo}/commit/{sha}.patch`
-  * Header regex: `^From:\s*([^<\n]+)<([^>\n]+)>`
-  * Bot filtering: Exclude `[bot]`, `users.noreply.github.com`, `actions@github.com`.
+* **Extracted Attributes:** Repository name, owner handle, description, stargazers count, primary language, and canonical product homepage.
+* **Compliance Note:** In accordance with GitHub's Acceptable Use Policies, this tool does not harvest email addresses from commit logs for unsolicited outreach.
 
 ---
 
